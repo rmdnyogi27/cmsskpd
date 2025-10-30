@@ -215,7 +215,7 @@
 
     <!-- Bagian kanan -->
     <div class="login-right">
-        <img src="{{ asset('storage/product-featured-239.png') }}" alt="Pemda Logo">
+        <img src="{{ asset('img/logo.png') }}" alt="Pemda Logo">
         <h2>Indramayu Reang</h2>
         <p>Selamat datang di sistem informasi Kabupaten Indramayu. Silakan login untuk melanjutkan.</p>
     </div>
