@@ -13,6 +13,7 @@ use App\Http\Controllers\VidioController;
 use App\Http\Controllers\BennerController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\InteraksiController;
+use App\Http\Controllers\Admin\BeritaController;
 
 // --------------------------------------------------------------------------
 // WEB ROUTES
@@ -120,4 +121,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/interaksi', [InteraksiController::class, 'index'])->name('route_untuk_daftar_interaksi');
     Route::get('/interaksi/create', [InteraksiController::class, 'create'])->name('route_untuk_tambah_interaksi');
+
+    //route berita
+Route::get('/admin/berita/tambah', [BeritaController::class, 'create'])->name('berita.tambah');
+Route::post('/admin/berita/simpan', [BeritaController::class, 'store'])->name('berita.simpan');
+
 });
+
+
