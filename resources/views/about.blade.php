@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-lg-12 mb-1">
                             <div class="text-center">
-                                <h5 class="font-weight-bold">Alejandro RH</h5>
+                                <h5 class="font-weight-bold">Indramayu Reang</h5>
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <h5 class="font-weight-bold">Laravel SB Admin 2</h5>
+                            <h5 class="font-weight-bold">Indramayu Reang</h5>
                             <p>SB Admin 2 for Laravel.</p>
                             <p>Recommend to install this preset on a project that you are starting from scratch, otherwise your project's design might break.</p>
                             <a href="https://github.com/aleckrh/laravel-sb-admin-2" target="_blank" class="btn btn-github">

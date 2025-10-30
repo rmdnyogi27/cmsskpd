@@ -116,4 +116,5 @@ class BasicController extends Controller
 
         return redirect()->route('basic.index')->with('message', 'User deleted successfully!');
     }
+    
 }

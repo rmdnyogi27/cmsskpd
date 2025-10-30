@@ -1,95 +1,223 @@
 @extends('layouts.auth')
 
 @section('main-content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">{{ __('Login') }}</h1>
-                                </div>
+<style>
+    /* ===== Background gradient full screen ===== */
+    body {
+        background: linear-gradient(135deg, #cfd9ff, #ffffff);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+    }
 
-                                @if ($errors->any())
-                                    <div class="alert alert-danger border-left-danger" role="alert">
-                                        <ul class="pl-4 my-2">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
+    /* ===== Card utama ===== */
+    .login-container {
+        display: flex;
+        width: 1000px;
+        max-width: 95%;
+        height: 600px;
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        background-color: #fff;
+        animation: fadeIn 1s ease-in-out;
+    }
 
-                                <form method="POST" action="{{ route('login') }}" class="user">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    /* ===== Kolom kiri: form login ===== */
+    .login-left {
+        flex: 1;
+        padding: 60px 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        animation: slideInLeft 1s ease-in-out;
+    }
 
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" name="email" placeholder="{{ __('E-Mail Address') }}" value="{{ old('email') }}" required autofocus>
-                                    </div>
+    /* ===== Kolom kanan: gambar Pemda + tulisan ===== */
+    .login-right {
+        flex: 1;
+        background: linear-gradient(135deg, #4e73df, #224abe);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        animation: slideInRight 1.2s ease-in-out;
+    }
 
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" name="password" placeholder="{{ __('Password') }}" required>
-                                    </div>
+.login-right img {
+    width: 160px;
+    height: auto;
+    margin-bottom: 20px; /* sebelumnya 200px, dikurangi supaya lebih dekat */
+    animation: float 4s ease-in-out infinite;
+}
 
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="remember">{{ __('Remember Me') }}</label>
-                                        </div>
-                                    </div>
+.login-right h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-top: 5px; /* tambahkan margin kecil supaya rapih */
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
 
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            {{ __('Login') }}
-                                        </button>
-                                    </div>
+.login-right p {
+    font-size: 14px;
+    opacity: 0.9;
+    width: 80%;
+    margin: 0 auto;
+}
 
-                                    <hr>
 
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-github btn-user btn-block">
-                                            <i class="fab fa-github fa-fw"></i> {{ __('Login with GitHub') }}
-                                        </button>
-                                    </div>
+    /* ===== Animasi ===== */
+    @keyframes fadeIn {
+        from {opacity: 0; transform: scale(0.98);}
+        to {opacity: 1; transform: scale(1);}
+    }
 
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-twitter btn-user btn-block">
-                                            <i class="fab fa-twitter fa-fw"></i> {{ __('Login with Twitter') }}
-                                        </button>
-                                    </div>
+    @keyframes slideInLeft {
+        from {transform: translateX(-50px); opacity: 0;}
+        to {transform: translateX(0); opacity: 1;}
+    }
 
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> {{ __('Login with Facebook') }}
-                                        </button>
-                                    </div>
-                                </form>
+    @keyframes slideInRight {
+        from {transform: translateX(50px); opacity: 0;}
+        to {transform: translateX(0); opacity: 1;}
+    }
 
-                                <hr>
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
 
-                                @if (Route::has('password.request'))
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Password?') }}
-                                        </a>
-                                    </div>
-                                @endif
+    /* ===== Input dan tombol ===== */
+    .form-control-user {
+        border-radius: 10px;
+        padding: 12px 15px;
+        font-size: 15px;
+    }
 
-                                @if (Route::has('register'))
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('register') }}">{{ __('Create an Account!') }}</a>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+    .btn-primary {
+        background-color: #4e73df;
+        border: none;
+        border-radius: 10px;
+        width: 100%;
+        padding: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #3752c9;
+        transform: translateY(-2px);
+    }
+
+    .text-center a.small {
+        color: #4e73df;
+        text-decoration: none;
+    }
+
+    .text-center a.small:hover {
+        text-decoration: underline;
+    }
+
+    /* ===== reCAPTCHA styling ===== */
+    .g-recaptcha {
+        transform: scale(0.9);
+        transform-origin: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        animation: fadeIn 1.2s ease-in-out;
+    }
+
+    @media (max-width: 768px) {
+        .login-container {
+            flex-direction: column;
+            height: auto;
+        }
+        .login-right {
+            padding: 30px 0;
+        }
+    }
+</style>
+
+<div class="login-container">
+    <!-- Bagian kiri -->
+    <div class="login-left">
+        <div class="text-center mb-4">
+            <h1 class="h4 text-gray-900">{{ __('Login') }}</h1>
+        </div>
+
+        @if ($errors->any())
+            <div class="alert alert-danger border-left-danger" role="alert">
+                <ul class="pl-4 my-2">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('login') }}" class="user">
+            @csrf
+            <div class="form-group mb-3">
+                <input type="email" class="form-control form-control-user"
+                    name="email" placeholder="{{ __('E-Mail Address') }}"
+                    value="{{ old('email') }}" required autofocus>
+            </div>
+
+            <div class="form-group mb-3">
+                <input type="password" class="form-control form-control-user"
+                    name="password" placeholder="{{ __('Password') }}" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <div class="custom-control custom-checkbox small">
+                    <input type="checkbox" class="custom-control-input"
+                        name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="remember">{{ __('Remember Me') }}</label>
                 </div>
             </div>
-        </div>
+
+            <!-- ===== reCAPTCHA tetap aktif dan muncul jelas ===== -->
+            <div class="form-group mt-3">
+                <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                @error('g-recaptcha-response')
+                    <span class="text-danger d-block text-center mt-2">{{ $message }}</span>
+                @enderror
+            </div>
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+            <!-- ================================================ -->
+
+            <button type="submit" class="btn btn-primary mt-3">Login</button>
+        </form>
+
+        <hr>
+
+        @if (Route::has('password.request'))
+            <div class="text-center">
+                <a class="small" href="{{ route('password.request') }}">{{ __('Forgot Password?') }}</a>
+            </div>
+        @endif
+
+        @if (Route::has('register'))
+            <div class="text-center mt-2">
+                <a class="small" href="{{ route('register') }}">{{ __('Create an Account!') }}</a>
+            </div>
+        @endif
+    </div>
+
+    <!-- Bagian kanan -->
+    <div class="login-right">
+        <img src="{{ asset('storage/product-featured-239.png') }}" alt="Pemda Logo">
+        <h2>Indramayu Reang</h2>
+        <p>Selamat datang di sistem informasi Kabupaten Indramayu. Silakan login untuk melanjutkan.</p>
     </div>
 </div>
 @endsection
