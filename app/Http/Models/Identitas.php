@@ -2,15 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class IdentitasWebsite extends Model
+class Identitas extends Model
 {
-    use HasFactory;
-
-    protected $table = 'identitas_websites';
-
+    protected $table = 'identitas'; // nama tabel di database kamu
     protected $fillable = [
         'nama_website',
         'email',
@@ -20,6 +16,6 @@ class IdentitasWebsite extends Model
         'meta_deskripsi',
         'meta_keyword',
         'google_maps',
-        'favicon',
+        'favicon'
     ];
 }
