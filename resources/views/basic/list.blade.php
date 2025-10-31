@@ -12,7 +12,7 @@
                 <th>No</th>
                 <th>Full Name</th>
                 <th>Email</th>
-                <th>#</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
