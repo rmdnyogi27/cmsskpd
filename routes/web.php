@@ -13,6 +13,7 @@ use App\Http\Controllers\BennerController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\InteraksiController;
 use App\Http\Controllers\IdentitasWebsiteController;
+use App\Http\Controllers\Admin\BeritaController;
 // --------------------------------------------------------------------------
 // WEB ROUTES
 // --------------------------------------------------------------------------
@@ -78,6 +79,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::view('/submenu1', 'admin.submenu1')->name('submenu1');
     Route::view('/submenu2', 'admin.submenu2')->name('submenu2');
     Route::view('/submenu3', 'admin.submenu3')->name('submenu3');
+    // route untukk identitas website
+Route::prefix('admin')->group(function () {
+    Route::get('/submenu1', function () {
+        return view('admin.submenu1');
+    })->name('submenu1');
+
+    Route::post('/submenu1', [IdentitasWebsiteController::class, 'update'])
+        ->name('admin.identitas.update');
+});
 
     //Modul berita 
     Route::view('/modulberita', 'admin.modulberita')->name('modulberita');
@@ -116,12 +126,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/interaksi', [InteraksiController::class, 'index'])->name('route_untuk_daftar_interaksi');
     Route::get('/interaksi/create', [InteraksiController::class, 'create'])->name('route_untuk_tambah_interaksi');
-});
-    // route untukk identitas website
-Route::prefix('admin')->group(function () {
-    Route::get('/submenu1', [IdentitasWebsiteController::class, 'edit'])
-        ->name('admin.identitas.edit');
 
-    Route::post('/identitas/update', [IdentitasWebsiteController::class, 'update'])
-        ->name('admin.identitas.update');
+    //route berita
+Route::get('/admin/berita/tambah', [BeritaController::class, 'create'])->name('berita.tambah');
+Route::post('/admin/berita/simpan', [BeritaController::class, 'store'])->name('berita.simpan');
+
 });
+
