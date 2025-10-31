@@ -8,12 +8,11 @@ use Illuminate\Support\Facades\Route;
 use App\User;
 use App\Http\Controllers\Admin\BasicController as AdminBasicController;
 use App\Http\Controllers\User\BasicController as UserBasicController;
-use App\Http\Controllers\IdentitasWebsiteController;
 use App\Http\Controllers\VidioController;
 use App\Http\Controllers\BennerController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\InteraksiController;
-
+use App\Http\Controllers\IdentitasWebsiteController;
 // --------------------------------------------------------------------------
 // WEB ROUTES
 // --------------------------------------------------------------------------
@@ -86,9 +85,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::view('/sub2', 'admin.sub2')->name('sub2');
     Route::view('/sub3', 'admin.sub3')->name('sub3');
 
-    // Identitas Website
-    Route::get('/identitaswebsite', [IdentitasWebsiteController::class, 'edit'])->name('admin.identitas.edit');
-    Route::put('/identitaswebsite', [IdentitasWebsiteController::class, 'update'])->name('admin.identitas.update');
 });
 
 // =========================================================
@@ -120,4 +116,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/interaksi', [InteraksiController::class, 'index'])->name('route_untuk_daftar_interaksi');
     Route::get('/interaksi/create', [InteraksiController::class, 'create'])->name('route_untuk_tambah_interaksi');
+});
+    // route untukk identitas website
+Route::prefix('admin')->group(function () {
+    Route::get('/submenu1', [IdentitasWebsiteController::class, 'edit'])
+        ->name('admin.identitas.edit');
+
+    Route::post('/identitas/update', [IdentitasWebsiteController::class, 'update'])
+        ->name('admin.identitas.update');
 });

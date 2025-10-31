@@ -2,36 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Identitas;
 use Illuminate\Http\Request;
 
 class IdentitasWebsiteController extends Controller
 {
-    /**
-     * Menampilkan daftar semua vidio.
-     * Rute: route('route_untuk_daftar_vidio')
-     */
-    public function index()
+    public function edit()
     {
-        // Di sini seharusnya Anda mengambil data vidio dari database (Model Vidio)
-        // Contoh: $videos = Vidio::all();
+        // Ambil data pertama dari tabel identitas
+        $identitas = Identitas::first();
 
-        // Data dummy untuk contoh
-        $videos = [
-            (object)['id' => 1, 'judul' => 'Peresmian Kantor Baru', 'uploader' => 'Admin', 'tanggal' => '2025-10-20'],
-            (object)['id' => 2, 'judul' => 'Festival Budaya Indramayu', 'uploader' => 'Admin', 'tanggal' => '2025-10-25'],
-        ];
-
-        return view('web.index', compact('videos'));
+        // Kirim data ke view
+        return view('admin.submenu1', compact('identitas'));
     }
 
-    /**
-     * Menampilkan formulir untuk membuat vidio baru.
-     * Rute: route('route_untuk_tambah_vidio')
-     */
-    public function create()
+    public function update(Request $request)
     {
-        return view('web.create');
-    }
+        $identitas = Identitas::first() ?? new Identitas();
+        $identitas->fill($request->except('favicon'));
 
-    // Anda bisa tambahkan fungsi store(Request $request), edit($id), dll.
+        if ($request->hasFile('favicon')) {
+            $path = $request->file('favicon')->store('favicon', 'public');
+            $identitas->favicon = $path;
+        }
+
+        $identitas->save();
+
+        return redirect()->route('admin.identitas.edit')->with('success', 'Data berhasil diperbarui!');
+    }
 }
