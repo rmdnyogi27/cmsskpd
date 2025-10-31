@@ -9,6 +9,7 @@
     <title>INDRAMAYU REANG</title>
 
     @if (session('success'))
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.3/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         Swal.fire({
             toast: true,
@@ -94,6 +95,7 @@
 
    <!-- Sidebar -->
 <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
+
     <!-- Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center py-3" href="{{ route('home') }}">
         <div class="sidebar-brand-icon">
@@ -103,6 +105,7 @@
 
     <hr class="sidebar-divider my-0">
 
+    <!-- Dashboard -->
     <li class="nav-item {{ Nav::isRoute('home') }}">
         <a class="nav-link" href="{{ route('home') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -114,6 +117,7 @@
     <div class="sidebar-heading text-white-50 small">Settings</div>
 
     @if(Auth::user()->role == 'admin')
+    <!-- Menu Utama -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMainMenu" aria-expanded="false">
             <i class="fas fa-fw fa-bars"></i>
@@ -130,16 +134,60 @@
     </li>
     @endif
 
-    {{-- Modul dihapus dari sini --}}
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading text-white-50 small">Modul</div>
 
-    <li class="nav-item {{ Nav::isRoute('berita.tambah') }}">
-    <a class="nav-link" href="{{ route('berita.tambah') }}">
+    <!-- Modul Berita -->
+    <li class="nav-item {{ Nav::isRoute('berita.index') }}">
+        <a class="nav-link" href="{{ route('berita.index') }}">
+            <i class="fas fa-fw fa-newspaper"></i>
+            <span>Modul Berita</span>
+        </a>
+    </li>
+
+    <!-- Modul Vidio -->
+    <li class="nav-item {{ Nav::isRoute('route_untuk_daftar_vidio') }}">
+        <a class="nav-link" href="{{ route('route_untuk_daftar_vidio') }}">
+            <i class="fas fa-fw fa-video"></i>
+            <span>Modul Vidio</span>
+        </a>
+    </li>
+
+    <!-- Modul Benner -->
+    <li class="nav-item {{ Nav::isRoute('route_untuk_daftar_benner') }}">
+        <a class="nav-link" href="{{ route('route_untuk_daftar_benner') }}">
+            <i class="fas fa-fw fa-image"></i>
+            <span>Modul Benner</span>
+        </a>
+    </li>
+
+    <!-- Modul Web -->
+    <li class="nav-item {{ Nav::isRoute('route_untuk_daftar_web') }}">
+        <a class="nav-link" href="{{ route('route_untuk_daftar_web') }}">
+            <i class="fas fa-fw fa-globe"></i>
+            <span>Modul Web</span>
+        </a>
+    </li>
+
+    <!-- Modul Interaksi -->
+    <li class="nav-item {{ Nav::isRoute('route_untuk_daftar_interaksi') }}">
+        <a class="nav-link" href="{{ route('route_untuk_daftar_interaksi') }}">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Modul Interaksi</span>
+        </a>
+    </li>
+
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading text-white-50 small">Akun & Informasi</div>
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('berita.index') }}">
         <i class="fas fa-fw fa-newspaper"></i>
-        <span>Tambah Berita</span>
+        <span>Berita</span>
     </a>
 </li>
 
-
+    <!-- Pengguna -->
     <li class="nav-item {{ Nav::isRoute('basic.index') }}">
         <a class="nav-link" href="{{ route('basic.index') }}">
             <i class="fas fa-fw fa-users"></i>
@@ -147,6 +195,7 @@
         </a>
     </li>
 
+    <!-- Profil -->
     <li class="nav-item {{ Nav::isRoute('profile') }}">
         <a class="nav-link" href="{{ route('profile') }}">
             <i class="fas fa-fw fa-user"></i>
@@ -154,6 +203,7 @@
         </a>
     </li>
 
+    <!-- Tentang -->
     <li class="nav-item {{ Nav::isRoute('about') }}">
         <a class="nav-link" href="{{ route('about') }}">
             <i class="fas fa-fw fa-info-circle"></i>
@@ -161,6 +211,7 @@
         </a>
     </li>
 
+    <!-- Blank Page -->
     <li class="nav-item {{ Nav::isRoute('blank') }}">
         <a class="nav-link" href="{{ route('blank') }}">
             <i class="fas fa-fw fa-book"></i>
@@ -175,6 +226,35 @@
 </ul>
 <!-- End Sidebar -->
 
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar shadow-sm mb-4 justify-content-between">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small font-weight-bold">
+                                {{ Auth::user()->name }} {{ Auth::user()->last_name }}
+                            </span>
+                            <figure class="img-profile rounded-circle avatar font-weight-bold" data-initial="{{ Auth::user()->name[0] }}"></figure>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                            <a class="dropdown-item" href="{{ route('profile') }}"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Profil</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Pengaturan</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Keluar
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
 
             <div class="container-fluid">
                 @stack('notif')
