@@ -12,7 +12,12 @@ use App\Http\Controllers\VidioController;
 use App\Http\Controllers\BennerController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\InteraksiController;
+<<<<<<< HEAD
 use App\Http\Controllers\IdentitasWebsiteController;
+=======
+use App\Http\Controllers\Admin\BeritaController;
+
+>>>>>>> 217cadf473ac63ccf21775d905fe0ecfc6bb4b9d
 // --------------------------------------------------------------------------
 // WEB ROUTES
 // --------------------------------------------------------------------------
@@ -116,7 +121,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/interaksi', [InteraksiController::class, 'index'])->name('route_untuk_daftar_interaksi');
     Route::get('/interaksi/create', [InteraksiController::class, 'create'])->name('route_untuk_tambah_interaksi');
+
+    //route berita
+Route::get('/admin/berita/tambah', [BeritaController::class, 'create'])->name('berita.tambah');
+Route::post('/admin/berita/simpan', [BeritaController::class, 'store'])->name('berita.simpan');
+
 });
+<<<<<<< HEAD
     // route untukk identitas website
 Route::prefix('admin')->group(function () {
     Route::get('/submenu1', [IdentitasWebsiteController::class, 'edit'])
@@ -125,3 +136,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/identitas/update', [IdentitasWebsiteController::class, 'update'])
         ->name('admin.identitas.update');
 });
+=======
+
+
+>>>>>>> 217cadf473ac63ccf21775d905fe0ecfc6bb4b9d
