@@ -4,7 +4,7 @@
 <div class="container">
     <h3 class="mb-4">Kelola Pengguna</h3>
 
-    <a href="{{ route('basic.create') }}" class="btn btn-primary mb-3">New User</a>
+    <a href="{{ route('basic.create') }}" class="btn btn-primary mb-3">+ New User</a>
 
     <table class="table table-bordered">
         <thead class="table-primary">

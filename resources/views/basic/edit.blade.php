@@ -23,7 +23,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="password" class="form-label">Password (isi kalau mau ubah)</label>
+            <label for="password" class="form-label">Password (isi jika mau diubah)</label>
             <input type="password" name="password" id="password" class="form-control">
         </div>
 
