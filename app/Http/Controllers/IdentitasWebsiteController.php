@@ -18,16 +18,10 @@ class IdentitasWebsiteController extends Controller
 
     public function update(Request $request)
     {
-        $identitas = Identitas::first() ?? new Identitas();
-        $identitas->fill($request->except('favicon'));
+        $identitas = Identitas::first();
+        $identitas->update($request->all());
 
-        if ($request->hasFile('favicon')) {
-            $path = $request->file('favicon')->store('favicon', 'public');
-            $identitas->favicon = $path;
-        }
-
-        $identitas->save();
-
-        return redirect()->route('admin.identitas.edit')->with('success', 'Data berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Data berhasil diperbarui!');
     }
 }
+

@@ -122,7 +122,7 @@
         <div id="collapseMainMenu" class="collapse" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded shadow-sm">
                 <h6 class="collapse-header">Pilih Menu:</h6>
-                <a class="collapse-item" href="{{ route('submenu1') }}">Identifikasi Website</a>
+                <a class="collapse-item" href="{{ route('identitas.edit') }}">Identifikasi Website</a>
                 <a class="collapse-item" href="{{ route('submenu2') }}">Menu Website</a>
                 <a class="collapse-item" href="{{ route('submenu3') }}">Halaman Baru</a>
             </div>

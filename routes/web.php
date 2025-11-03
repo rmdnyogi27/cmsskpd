@@ -79,14 +79,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::view('/submenu1', 'admin.submenu1')->name('submenu1');
     Route::view('/submenu2', 'admin.submenu2')->name('submenu2');
     Route::view('/submenu3', 'admin.submenu3')->name('submenu3');
-    // route untukk identitas website
-Route::prefix('admin')->group(function () {
-    Route::get('/submenu1', function () {
-        return view('admin.submenu1');
-    })->name('submenu1');
 
-    Route::post('/submenu1', [IdentitasWebsiteController::class, 'update'])
-        ->name('admin.identitas.update');
+    // route untukk identitas website
+    
+    Route::get('/submenu1', [IdentitasWebsiteController::class, 'edit'])->name('identitas.edit');
+    Route::post('/submenu1/update', [IdentitasWebsiteController::class, 'update'])->name('identitas.update');
 });
 
     //Modul berita 
@@ -94,8 +91,6 @@ Route::prefix('admin')->group(function () {
     Route::view('/sub1', 'admin.sub1')->name('sub1');
     Route::view('/sub2', 'admin.sub2')->name('sub2');
     Route::view('/sub3', 'admin.sub3')->name('sub3');
-
-});
 
 // =========================================================
 // PROFILE & STATIC PAGES
